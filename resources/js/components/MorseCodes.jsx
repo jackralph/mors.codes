@@ -7,6 +7,9 @@ function MorseCodes() {
     const [mouseDown, setMouseDown] = useState(false);
     const [mouseDownTimeStamp, setMouseDownTimeStamp] = useState([]);
     const [mouseUpTimeStamp, setMouseUpTimeStamp] = useState([]);
+    const [currentPaperColour, setCurrentPaperColour] = useState("paper pink");
+
+    // Target Letter
 
     const getRandomLetter = () => {
         const randomNumber = Math.floor(Math.random() * currentMorseCodes.length);
@@ -15,6 +18,8 @@ function MorseCodes() {
     }
 
     const [currentMorseLetter] = useState(getRandomLetter());
+
+    // Dots or Dashes
 
     const detectDotOrDash = () => {
         const timeStampDifference = mouseUpTimeStamp - mouseDownTimeStamp;
@@ -50,12 +55,20 @@ function MorseCodes() {
         firstUpdate.current = false;
     }, [mouseUpTimeStamp]);
 
+    // Paper Colours
+
+    const paperColours = ['pink', 'blue'];
+
+    useEffect(() => {
+        setCurrentPaperColour(`paper ${paperColours[Math.floor(Math.random()*paperColours.length)]}`)
+    }, [currentMorseLetter]);
+
     return (
         <div className="container w-100 text-center" style={{ userSelect: "none" }}>
 
-            <h1 style={{ fontSize: "10em" }}>
-                {currentMorseLetter}
-            </h1>
+            <div className={currentPaperColour}>
+                <p className="py-5 px-4">{currentMorseLetter}</p>
+            </div>
             
             <h1 style={{ fontSize: "10em" }}>
                 {currentMorseCodeTyped}

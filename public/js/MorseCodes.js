@@ -31179,14 +31179,21 @@ function MorseCodes() {
       mouseUpTimeStamp = _useState10[0],
       setMouseUpTimeStamp = _useState10[1];
 
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("paper pink"),
+      _useState12 = _slicedToArray(_useState11, 2),
+      currentPaperColour = _useState12[0],
+      setCurrentPaperColour = _useState12[1]; // Target Letter
+
+
   var getRandomLetter = function getRandomLetter() {
     var randomNumber = Math.floor(Math.random() * currentMorseCodes.length);
     return currentMorseCodes[randomNumber].letter;
   };
 
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(getRandomLetter()),
-      _useState12 = _slicedToArray(_useState11, 1),
-      currentMorseLetter = _useState12[0];
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(getRandomLetter()),
+      _useState14 = _slicedToArray(_useState13, 1),
+      currentMorseLetter = _useState14[0]; // Dots or Dashes
+
 
   var detectDotOrDash = function detectDotOrDash() {
     var timeStampDifference = mouseUpTimeStamp - mouseDownTimeStamp;
@@ -31220,17 +31227,23 @@ function MorseCodes() {
     }
 
     firstUpdate.current = false;
-  }, [mouseUpTimeStamp]);
+  }, [mouseUpTimeStamp]); // Paper Colours
+
+  var paperColours = ['pink', 'blue'];
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    setCurrentPaperColour("paper ".concat(paperColours[Math.floor(Math.random() * paperColours.length)]));
+  }, [currentMorseLetter]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
     className: "container w-100 text-center",
     style: {
       userSelect: "none"
     },
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h1", {
-      style: {
-        fontSize: "10em"
-      },
-      children: currentMorseLetter
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      className: currentPaperColour,
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
+        className: "py-5 px-4",
+        children: currentMorseLetter
+      })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h1", {
       style: {
         fontSize: "10em"
