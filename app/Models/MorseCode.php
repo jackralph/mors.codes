@@ -10,6 +10,4 @@ class MorseCode extends Model
     use HasFactory;
 
     public $timestamps = false;
-
-    protected $primaryKey = 'letter';
 }

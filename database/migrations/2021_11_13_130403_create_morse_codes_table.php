@@ -14,6 +14,7 @@ class CreateMorseCodesTable extends Migration
     public function up()
     {
         Schema::create('morse_codes', function (Blueprint $table) {
+            $table->id();
             $table->string('letter');
             $table->string('morse');
         });
