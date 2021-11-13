@@ -26,6 +26,6 @@ class MorseCodeController extends Controller
             $morse_codes_array["{$morse_code_length}_char"][$morse_code->letter] = $morse_code->morse;
         }
 
-        return $morse_codes_array;
+        return view('welcome');
     }
 }
