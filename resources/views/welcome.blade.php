@@ -23,6 +23,9 @@
     <body class="antialiased">
         <div id="content"></div>
 
+        <script>
+            const morseCodes = {!! json_encode($morse_codes) !!}
+        </script>
         <script src="/js/app.js"></script>
     </body>
 </html>
