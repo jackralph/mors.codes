@@ -2151,22 +2151,41 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 function MorseCodes() {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(morseCodes.oneChar),
       _useState2 = _slicedToArray(_useState, 2),
       currentMorseCodes = _useState2[0],
       setCurrentMorseCodes = _useState2[1];
 
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+      _useState4 = _slicedToArray(_useState3, 2),
+      currentMorseCodeTyped = _useState4[0],
+      setCurrentMorseCodeTyped = _useState4[1];
+
   var getRandomLetter = function getRandomLetter() {
     var randomNumber = Math.floor(Math.random() * currentMorseCodes.length);
     return currentMorseCodes[randomNumber].letter;
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-    className: "container",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+    className: "container w-100 text-center",
+    style: {
+      userSelect: "none"
+    },
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h1", {
+      style: {
+        fontSize: "5em"
+      },
       children: getRandomLetter()
-    })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h1", {
+      style: {
+        fontSize: "5em"
+      },
+      children: currentMorseCodeTyped
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      className: "button gray"
+    })]
   });
 }
 

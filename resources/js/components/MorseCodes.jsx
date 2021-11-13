@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 function MorseCodes() {
 
     const [currentMorseCodes, setCurrentMorseCodes] = useState(morseCodes.oneChar);
+    const [currentMorseCodeTyped, setCurrentMorseCodeTyped] = useState("");
 
     const getRandomLetter = () => {
         const randomNumber = Math.floor(Math.random() * currentMorseCodes.length);
@@ -12,8 +13,16 @@ function MorseCodes() {
     }
 
     return (
-        <div className="container">
-            <p>{getRandomLetter()}</p>
+        <div className="container w-100 text-center" style={{ userSelect: "none" }}>
+            <h1 style={{ fontSize: "5em" }}>
+                    {getRandomLetter()}
+            </h1>
+            
+            <h1 style={{ fontSize: "5em" }}>
+                {currentMorseCodeTyped}
+            </h1>
+
+            <div className="button gray"></div>
         </div>
     );
 }
