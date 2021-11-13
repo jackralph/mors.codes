@@ -1,8 +1,6 @@
 .button {
     min-height: 1.5em;
     display: inline-block;
-    padding: 75px;
-    margin: 40px 5px 5px 0px;
     cursor: pointer;
     opacity: 0.9;
 
@@ -54,6 +52,14 @@
     -moz-transition: all 0.1s linear;
     -o-transition: all 0.1s linear;
     transition: all 0.1s linear;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    margin-top: -100px;
+    margin-left: -100px;
 }
 .button:hover {
     -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 5px,

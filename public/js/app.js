@@ -2163,11 +2163,51 @@ function MorseCodes() {
       currentMorseCodeTyped = _useState4[0],
       setCurrentMorseCodeTyped = _useState4[1];
 
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState6 = _slicedToArray(_useState5, 2),
+      mouseDown = _useState6[0],
+      setMouseDown = _useState6[1];
+
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+      _useState8 = _slicedToArray(_useState7, 2),
+      mouseDownTimeStamp = _useState8[0],
+      setMouseDownTimeStamp = _useState8[1];
+
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+      _useState10 = _slicedToArray(_useState9, 2),
+      mouseUpTimeStamp = _useState10[0],
+      setMouseUpTimeStamp = _useState10[1];
+
   var getRandomLetter = function getRandomLetter() {
     var randomNumber = Math.floor(Math.random() * currentMorseCodes.length);
     return currentMorseCodes[randomNumber].letter;
   };
 
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(getRandomLetter()),
+      _useState12 = _slicedToArray(_useState11, 1),
+      currentMorseLetter = _useState12[0];
+
+  var detectDotOrDash = function detectDotOrDash() {
+    console.log(mouseUpTimeStamp - mouseDownTimeStamp);
+  };
+
+  var startTypingMorse = function startTypingMorse(e) {
+    if (!mouseDown) {
+      setMouseDown(true);
+      setMouseDownTimeStamp(e.timeStamp);
+    }
+  };
+
+  var stopTypingMorse = function stopTypingMorse(e) {
+    if (mouseDown) {
+      setMouseDown(false);
+      setMouseUpTimeStamp(e.timeStamp);
+    }
+  };
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    detectDotOrDash();
+  }, [mouseUpTimeStamp]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
     className: "container w-100 text-center",
     style: {
@@ -2175,16 +2215,18 @@ function MorseCodes() {
     },
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h1", {
       style: {
-        fontSize: "5em"
+        fontSize: "10em"
       },
-      children: getRandomLetter()
+      children: currentMorseLetter
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h1", {
       style: {
-        fontSize: "5em"
+        fontSize: "10em"
       },
       children: currentMorseCodeTyped
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-      className: "button gray"
+      className: "button gray",
+      onMouseDown: startTypingMorse,
+      onMouseUp: stopTypingMorse
     })]
   });
 }
