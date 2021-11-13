@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
 function MorseCodes() {
-
     const [currentMorseCodes, setCurrentMorseCodes] = useState(morseCodes.oneChar);
     const [currentMorseCodeTyped, setCurrentMorseCodeTyped] = useState("");
     const [mouseDown, setMouseDown] = useState(false);
-    const [mouseDownTimeStamp, setMouseDownTimeStamp] = useState(0);
-    const [mouseUpTimeStamp, setMouseUpTimeStamp] = useState(0);
+    const [mouseDownTimeStamp, setMouseDownTimeStamp] = useState([]);
+    const [mouseUpTimeStamp, setMouseUpTimeStamp] = useState([]);
 
     const getRandomLetter = () => {
         const randomNumber = Math.floor(Math.random() * currentMorseCodes.length);
@@ -18,7 +17,14 @@ function MorseCodes() {
     const [currentMorseLetter] = useState(getRandomLetter());
 
     const detectDotOrDash = () => {
-        console.log(mouseUpTimeStamp - mouseDownTimeStamp);
+        const timeStampDifference = mouseUpTimeStamp - mouseDownTimeStamp;
+        const previousMorseCodeTyped = currentMorseCodeTyped;
+
+        if (timeStampDifference > 250) {
+            setCurrentMorseCodeTyped([...previousMorseCodeTyped, "-"]);
+        } else {
+            setCurrentMorseCodeTyped([...previousMorseCodeTyped, "·"]);
+        }
     }
     
     const startTypingMorse = (e) => {
@@ -35,15 +41,20 @@ function MorseCodes() {
         }
     }
 
+    const firstUpdate = useRef(true);
+
     useEffect(() => {
-        detectDotOrDash();
+        if (!firstUpdate.current) {
+            detectDotOrDash();
+        }
+        firstUpdate.current = false;
     }, [mouseUpTimeStamp]);
 
     return (
         <div className="container w-100 text-center" style={{ userSelect: "none" }}>
 
             <h1 style={{ fontSize: "10em" }}>
-                    {currentMorseLetter}
+                {currentMorseLetter}
             </h1>
             
             <h1 style={{ fontSize: "10em" }}>

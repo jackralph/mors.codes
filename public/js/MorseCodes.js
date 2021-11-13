@@ -31128,6 +31128,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -31161,12 +31169,12 @@ function MorseCodes() {
       mouseDown = _useState6[0],
       setMouseDown = _useState6[1];
 
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState8 = _slicedToArray(_useState7, 2),
       mouseDownTimeStamp = _useState8[0],
       setMouseDownTimeStamp = _useState8[1];
 
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState10 = _slicedToArray(_useState9, 2),
       mouseUpTimeStamp = _useState10[0],
       setMouseUpTimeStamp = _useState10[1];
@@ -31181,7 +31189,14 @@ function MorseCodes() {
       currentMorseLetter = _useState12[0];
 
   var detectDotOrDash = function detectDotOrDash() {
-    console.log(mouseUpTimeStamp - mouseDownTimeStamp);
+    var timeStampDifference = mouseUpTimeStamp - mouseDownTimeStamp;
+    var previousMorseCodeTyped = currentMorseCodeTyped;
+
+    if (timeStampDifference > 250) {
+      setCurrentMorseCodeTyped([].concat(_toConsumableArray(previousMorseCodeTyped), ["-"]));
+    } else {
+      setCurrentMorseCodeTyped([].concat(_toConsumableArray(previousMorseCodeTyped), ["·"]));
+    }
   };
 
   var startTypingMorse = function startTypingMorse(e) {
@@ -31198,8 +31213,13 @@ function MorseCodes() {
     }
   };
 
+  var firstUpdate = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(true);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    detectDotOrDash();
+    if (!firstUpdate.current) {
+      detectDotOrDash();
+    }
+
+    firstUpdate.current = false;
   }, [mouseUpTimeStamp]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
     className: "container w-100 text-center",
