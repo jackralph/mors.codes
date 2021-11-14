@@ -7,7 +7,7 @@
         <title>mors.codes</title>
 
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 
         <!-- Styles -->
         <link rel="stylesheet" href="/css/app.css">
@@ -17,7 +17,8 @@
 
         <style>
             body {
-                font-family: 'Nunito', sans-serif;
+                font-family: 'VT323', monospace;
+                text-shadow: 0 0 5px #C8C8C8;
             }
         </style>
     </head>

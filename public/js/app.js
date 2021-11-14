@@ -2160,46 +2160,66 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 function MorseCodes() {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(morseCodes.oneChar),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("ate".split("")),
       _useState2 = _slicedToArray(_useState, 2),
-      currentMorseCodes = _useState2[0],
-      setCurrentMorseCodes = _useState2[1];
+      currentChallenge = _useState2[0],
+      setCurrentChallenge = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(currentChallenge[0]),
       _useState4 = _slicedToArray(_useState3, 2),
-      currentMorseCodeTyped = _useState4[0],
-      setCurrentMorseCodeTyped = _useState4[1];
+      currentLetter = _useState4[0],
+      setCurrentLetter = _useState4[1];
 
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
       _useState6 = _slicedToArray(_useState5, 2),
-      mouseDown = _useState6[0],
-      setMouseDown = _useState6[1];
+      currentMorseCodeTyped = _useState6[0],
+      setCurrentMorseCodeTyped = _useState6[1];
 
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState8 = _slicedToArray(_useState7, 2),
-      mouseDownTimeStamp = _useState8[0],
-      setMouseDownTimeStamp = _useState8[1];
+      mouseDown = _useState8[0],
+      setMouseDown = _useState8[1];
 
   var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState10 = _slicedToArray(_useState9, 2),
-      mouseUpTimeStamp = _useState10[0],
-      setMouseUpTimeStamp = _useState10[1];
+      mouseDownTimeStamp = _useState10[0],
+      setMouseDownTimeStamp = _useState10[1];
 
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("paper pink"),
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState12 = _slicedToArray(_useState11, 2),
-      currentPaperColour = _useState12[0],
-      setCurrentPaperColour = _useState12[1]; // Target Letter
+      mouseUpTimeStamp = _useState12[0],
+      setMouseUpTimeStamp = _useState12[1];
 
+  var currentIndexOfChallengeLetter = currentChallenge.indexOf(currentLetter);
 
-  var getRandomLetter = function getRandomLetter() {
-    var randomNumber = Math.floor(Math.random() * currentMorseCodes.length);
-    return currentMorseCodes[randomNumber].letter;
-  };
+  var compareMorseToCurrentLetter = function compareMorseToCurrentLetter() {
+    var currentLetterElement = document.getElementById("challenge-letter-".concat(currentIndexOfChallengeLetter));
+    var targetMorse = morseCodes[currentLetter];
+    var morseMatchesTargetLetterLength = targetMorse.length === currentMorseCodeTyped.length;
+    var correctMorseCount = 0;
+    currentMorseCodeTyped.map(function (morse, i) {
+      if (morse === targetMorse.split("")[i]) {
+        correctMorseCount++;
+      }
+    });
+    var currentMorseIsCorrect = correctMorseCount === currentMorseCodeTyped.length;
 
-  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(getRandomLetter()),
-      _useState14 = _slicedToArray(_useState13, 1),
-      currentMorseLetter = _useState14[0]; // Dots or Dashes
+    if (!currentMorseIsCorrect) {
+      currentLetterElement.classList.remove('cursor');
+      currentLetterElement.classList.add('shake');
+      setCurrentMorseCodeTyped("");
+      setTimeout(function () {
+        currentLetterElement.classList.remove('shake');
+        currentLetterElement.classList.add('cursor');
+      }, 200);
+    }
+
+    if (currentMorseIsCorrect && morseMatchesTargetLetterLength) {
+      setCurrentLetter(currentChallenge[currentIndexOfChallengeLetter + 1]);
+    }
+  }; // Dots or Dashes
 
 
   var detectDotOrDash = function detectDotOrDash() {
@@ -2209,7 +2229,7 @@ function MorseCodes() {
     if (timeStampDifference > 250) {
       setCurrentMorseCodeTyped([].concat(_toConsumableArray(previousMorseCodeTyped), ["-"]));
     } else {
-      setCurrentMorseCodeTyped([].concat(_toConsumableArray(previousMorseCodeTyped), ["·"]));
+      setCurrentMorseCodeTyped([].concat(_toConsumableArray(previousMorseCodeTyped), ["."]));
     }
   };
 
@@ -2234,22 +2254,49 @@ function MorseCodes() {
     }
 
     firstUpdate.current = false;
-  }, [mouseUpTimeStamp]); // Paper Colours
-
-  var paperColours = ['pink', 'blue'];
+  }, [mouseUpTimeStamp]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    setCurrentPaperColour("paper ".concat(paperColours[Math.floor(Math.random() * paperColours.length)]));
-  }, [currentMorseLetter]);
+    if (currentMorseCodeTyped.length) {
+      compareMorseToCurrentLetter();
+    }
+  }, [currentMorseCodeTyped]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
     className: "container w-100 text-center",
     style: {
       userSelect: "none"
     },
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-      className: currentPaperColour,
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
-        className: "py-5 px-4",
-        children: currentMorseLetter
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h1", {
+      style: {
+        fontSize: "10em"
+      },
+      children: currentChallenge.map(function (letter, i) {
+        var currentLetter = i === currentIndexOfChallengeLetter;
+        var futureLetters = i > currentIndexOfChallengeLetter;
+
+        if (currentLetter) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+              id: "challenge-letter-".concat(i),
+              className: "cursor",
+              children: letter
+            }, i)
+          });
+        }
+
+        if (futureLetters) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+              id: "challenge-letter-".concat(i),
+              className: "future-letter",
+              children: letter
+            }, i)
+          });
+        }
+
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+          id: "challenge-letter-".concat(i),
+          children: letter
+        }, i);
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h1", {
       style: {
@@ -2257,7 +2304,7 @@ function MorseCodes() {
       },
       children: currentMorseCodeTyped
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-      className: "button gray",
+      className: "button grey",
       onMouseDown: startTypingMorse,
       onMouseUp: stopTypingMorse
     })]

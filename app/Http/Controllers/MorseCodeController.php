@@ -11,31 +11,10 @@ class MorseCodeController extends Controller
     {
         $morse_codes = MorseCode::all();
 
-        $morse_codes_array = [
-            'oneChar' => [],
-            'twoChar' => [],
-            'threeChar' => [],
-            'fourChar' => [],
-            'fiveChar' => [],
-            'sixChar' => [],
-        ];
-
-        $morse_codes_length_array = [
-            1 => 'one',
-            2 => 'two',
-            3 => 'three',
-            4 => 'four',
-            5 => 'five',
-            6 => 'six'
-        ];
+        $morse_codes_array = [];
 
         foreach ($morse_codes as $morse_code) {
-            $morse_code_length = $morse_codes_length_array[strlen($morse_code->morse)];
-
-            array_push($morse_codes_array["{$morse_code_length}Char"], [
-                'letter' => $morse_code->letter,
-                'morse' => $morse_code->morse
-            ]);
+            $morse_codes_array[$morse_code->letter] = $morse_code->morse;
         }
 
         return view('welcome', [

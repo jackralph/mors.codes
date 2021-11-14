@@ -1,0 +1,72 @@
+body {
+    background: black;
+    color: #5dfc0a;
+}
+
+@-webkit-keyframes shake {
+    0% {
+        -webkit-transform: translate(2px, 1px) rotate(0deg);
+    }
+    10% {
+        -webkit-transform: translate(-1px, -2px) rotate(-1deg);
+    }
+    20% {
+        -webkit-transform: translate(-3px, 0px) rotate(1deg);
+    }
+    30% {
+        -webkit-transform: translate(0px, 2px) rotate(0deg);
+    }
+    40% {
+        -webkit-transform: translate(1px, -1px) rotate(1deg);
+    }
+    50% {
+        -webkit-transform: translate(-1px, 2px) rotate(-1deg);
+    }
+    60% {
+        -webkit-transform: translate(-3px, 1px) rotate(0deg);
+    }
+    70% {
+        -webkit-transform: translate(2px, 1px) rotate(-1deg);
+    }
+    80% {
+        -webkit-transform: translate(-1px, -1px) rotate(1deg);
+    }
+    90% {
+        -webkit-transform: translate(2px, 2px) rotate(0deg);
+    }
+    100% {
+        -webkit-transform: translate(1px, -2px) rotate(-1deg);
+    }
+}
+.shake {
+    -webkit-animation-name: shake;
+    -webkit-animation-duration: 0.5s;
+    -webkit-transform-origin: 50% 50%;
+    -webkit-animation-iteration-count: infinite;
+}
+.shake {
+    display: inline-block;
+}
+
+@-webkit-keyframes demo {
+    0% {
+        background-color: rgb(0, 0, 0);
+    }
+    75% {
+        background-color: rgba(0, 255, 26, 0.485);
+    }
+    100% {
+        background-color: rgba(0, 0, 0);
+    }
+}
+
+.cursor {
+    -webkit-animation-name: demo;
+    -webkit-animation-duration: 900ms;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: ease-in-out;
+}
+
+.future-letter {
+    opacity: 0.2;
+}
