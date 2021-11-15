@@ -31170,20 +31170,25 @@ function MorseCodes() {
       currentMorseCodeTyped = _useState6[0],
       setCurrentMorseCodeTyped = _useState6[1];
 
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
       _useState8 = _slicedToArray(_useState7, 2),
-      mouseDown = _useState8[0],
-      setMouseDown = _useState8[1];
+      previousMorseCodeTyped = _useState8[0],
+      setPreviousMorseCodeTyped = _useState8[1];
 
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState10 = _slicedToArray(_useState9, 2),
-      mouseDownTimeStamp = _useState10[0],
-      setMouseDownTimeStamp = _useState10[1];
+      mouseDown = _useState10[0],
+      setMouseDown = _useState10[1];
 
   var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState12 = _slicedToArray(_useState11, 2),
-      mouseUpTimeStamp = _useState12[0],
-      setMouseUpTimeStamp = _useState12[1];
+      mouseDownTimeStamp = _useState12[0],
+      setMouseDownTimeStamp = _useState12[1];
+
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+      _useState14 = _slicedToArray(_useState13, 2),
+      mouseUpTimeStamp = _useState14[0],
+      setMouseUpTimeStamp = _useState14[1];
 
   var currentIndexOfChallengeLetter = currentChallenge.indexOf(currentLetter);
 
@@ -31211,6 +31216,11 @@ function MorseCodes() {
 
     if (currentMorseIsCorrect && morseMatchesTargetLetterLength) {
       setCurrentLetter(currentChallenge[currentIndexOfChallengeLetter + 1]);
+      setPreviousMorseCodeTyped(currentMorseCodeTyped);
+      setCurrentMorseCodeTyped("");
+      setTimeout(function () {
+        setPreviousMorseCodeTyped("");
+      }, 200);
     }
   }; // Dots or Dashes
 
@@ -31295,7 +31305,7 @@ function MorseCodes() {
       style: {
         fontSize: "10em"
       },
-      children: currentMorseCodeTyped
+      children: currentMorseCodeTyped === '' ? previousMorseCodeTyped : currentMorseCodeTyped
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
       className: "button grey",
       onMouseDown: startTypingMorse,

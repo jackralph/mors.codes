@@ -5,6 +5,7 @@ function MorseCodes() {
     const [currentChallenge, setCurrentChallenge] = useState("ate".split(""));
     const [currentLetter, setCurrentLetter] = useState(currentChallenge[0]);
     const [currentMorseCodeTyped, setCurrentMorseCodeTyped] = useState("");
+    const [previousMorseCodeTyped, setPreviousMorseCodeTyped] = useState("");
     const [mouseDown, setMouseDown] = useState(false);
     const [mouseDownTimeStamp, setMouseDownTimeStamp] = useState([]);
     const [mouseUpTimeStamp, setMouseUpTimeStamp] = useState([]);
@@ -37,6 +38,12 @@ function MorseCodes() {
 
         if (currentMorseIsCorrect && morseMatchesTargetLetterLength) {
             setCurrentLetter(currentChallenge[currentIndexOfChallengeLetter + 1]);
+            setPreviousMorseCodeTyped(currentMorseCodeTyped);
+            setCurrentMorseCodeTyped("");
+            
+            setTimeout(() => {
+                setPreviousMorseCodeTyped("");
+            }, 200);
         }
     }
 
@@ -112,7 +119,7 @@ function MorseCodes() {
             </h1>
 
             <h1 style={{ fontSize: "10em" }}>
-                {currentMorseCodeTyped}
+                {currentMorseCodeTyped === '' ? previousMorseCodeTyped : currentMorseCodeTyped}
             </h1>
 
             <div className="button grey" onMouseDown={startTypingMorse} onMouseUp={stopTypingMorse}></div>
