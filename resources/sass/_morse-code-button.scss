@@ -1,209 +1,104 @@
-.button {
-    min-height: 1.5em;
+$outline-width: 6px;
+$shadow-width: 4px;
+
+$button-background: #92cd41;
+$sec-button-background: #76c442;
+$shadow-color: #4aa52e;
+
+$alt-button-background: #f7d51d;
+$alt-sec-button-background: #f2c409;
+$alt-shadow-color: #e59400;
+
+$reset-button-background: #e76e55;
+$reset-sec-button-background: #ce372b;
+$reset-shadow-color: #8c2022;
+
+.eightbit-btn {
+    background: $button-background;
     display: inline-block;
-    cursor: pointer;
-    opacity: 0.9;
-
-    color: #fff;
-    font-size: 1em;
-    letter-spacing: 1px;
-    text-shadow: rgba(0, 0, 0, 0.9) 0px 1px 2px;
-
-    background: #434343;
-    border: 1px solid #242424;
-
-    -webkit-border-radius: 4px;
-    -khtml-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -o-border-radius: 4px;
-    border-radius: 100%;
-    -webkit-box-shadow: rgba(255, 255, 255, 0.25) 0px 1px 0px,
-        inset rgba(255, 255, 255, 0.25) 0px 1px 0px,
-        inset rgba(0, 0, 0, 0.25) 0px 0px 0px,
-        inset rgba(255, 255, 255, 0.03) 0px 20px 0px,
-        inset rgba(0, 0, 0, 0.15) 0px -20px 20px,
-        inset rgba(255, 255, 255, 0.05) 0px 20px 50px;
-    -khtml-box-shadow: rgba(255, 255, 255, 0.25) 0px 1px 0px,
-        inset rgba(255, 255, 255, 0.25) 0px 1px 0px,
-        inset rgba(0, 0, 0, 0.25) 0px 0px 0px,
-        inset rgba(255, 255, 255, 0.03) 0px 20px 0px,
-        inset rgba(0, 0, 0, 0.15) 0px -20px 20px,
-        inset rgba(255, 255, 255, 0.05) 0px 20px 50px;
-    -moz-box-shadow: rgba(255, 255, 255, 0.25) 0px 1px 0px,
-        inset rgba(255, 255, 255, 0.25) 0px 1px 0px,
-        inset rgba(0, 0, 0, 0.25) 0px 0px 0px,
-        inset rgba(255, 255, 255, 0.03) 0px 20px 0px,
-        inset rgba(0, 0, 0, 0.15) 0px -20px 20px,
-        inset rgba(255, 255, 255, 0.05) 0px 20px 50px;
-    -o-box-shadow: rgba(255, 255, 255, 0.25) 0px 1px 0px,
-        inset rgba(255, 255, 255, 0.25) 0px 1px 0px,
-        inset rgba(0, 0, 0, 0.25) 0px 0px 0px,
-        inset rgba(255, 255, 255, 0.03) 0px 20px 0px,
-        inset rgba(0, 0, 0, 0.15) 0px -20px 20px,
-        inset rgba(255, 255, 255, 0.05) 0px 20px 50px;
-    box-shadow: rgba(255, 255, 255, 0.25) 0px 1px 0px,
-        inset rgba(255, 255, 255, 0.25) 0px 1px 0px,
-        inset rgba(0, 0, 0, 0.25) 0px 0px 0px,
-        inset rgba(255, 255, 255, 0.03) 0px 20px 0px,
-        inset rgba(0, 0, 0, 0.15) 0px -20px 20px,
-        inset rgba(255, 255, 255, 0.05) 0px 20px 50px;
-    -webkit-transition: all 0.1s linear;
-    -khtml-transition: all 0.1s linear;
-    -moz-transition: all 0.1s linear;
-    -o-transition: all 0.1s linear;
-    transition: all 0.1s linear;
-
     position: absolute;
     top: 60%;
     left: 50%;
-    width: 200px;
-    height: 200px;
-    margin-top: -100px;
-    margin-left: -100px;
-}
-.button:hover {
-    -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 5px,
-        inset rgba(255, 255, 255, 0.25) 0px 1px 25px,
-        inset rgba(0, 0, 0, 0.25) 0px 0px 25px,
-        inset rgba(255, 255, 255, 0.03) 0px 20px 0px,
-        inset rgba(0, 0, 0, 0.15) 0px -20px 20px,
-        inset rgba(255, 255, 255, 0.05) 0px 20px 20px;
-    -khtml-box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 5px,
-        inset rgba(255, 255, 255, 0.25) 0px 1px 25px,
-        inset rgba(0, 0, 0, 0.25) 0px 0px 25px,
-        inset rgba(255, 255, 255, 0.03) 0px 20px 0px,
-        inset rgba(0, 0, 0, 0.15) 0px -20px 20px,
-        inset rgba(255, 255, 255, 0.05) 0px 20px 20px;
-    -moz-box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 5px,
-        inset rgba(255, 255, 255, 0.25) 0px 1px 25px,
-        inset rgba(0, 0, 0, 0.25) 0px 0px 25px,
-        inset rgba(255, 255, 255, 0.03) 0px 20px 0px,
-        inset rgba(0, 0, 0, 0.15) 0px -20px 20px,
-        inset rgba(255, 255, 255, 0.05) 0px 20px 20px;
-    -o-box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 5px,
-        inset rgba(255, 255, 255, 0.25) 0px 1px 25px,
-        inset rgba(0, 0, 0, 0.25) 0px 0px 25px,
-        inset rgba(255, 255, 255, 0.03) 0px 20px 0px,
-        inset rgba(0, 0, 0, 0.15) 0px -20px 20px,
-        inset rgba(255, 255, 255, 0.05) 0px 20px 20px;
-    box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 5px,
-        inset rgba(255, 255, 255, 0.25) 0px 1px 25px,
-        inset rgba(0, 0, 0, 0.25) 0px 0px 25px,
-        inset rgba(255, 255, 255, 0.03) 0px 20px 0px,
-        inset rgba(0, 0, 0, 0.15) 0px -20px 20px,
-        inset rgba(255, 255, 255, 0.05) 0px 20px 20px;
-}
-.button:active {
-    -webkit-box-shadow: rgba(255, 255, 255, 0.25) 0px 1px 0px,
-        inset rgba(255, 255, 255, 0) 0px 1px 0px,
-        inset rgba(0, 0, 0, 0.5) 0px 0px 5px,
-        inset rgba(255, 255, 255, 0.03) 0px 20px 0px,
-        inset rgba(0, 0, 0, 0.15) 0px -20px 20px,
-        inset rgba(255, 255, 255, 0.05) 0px 20px 20px;
-    -khtml-box-shadow: rgba(255, 255, 255, 0.25) 0px 1px 0px,
-        inset rgba(255, 255, 255, 0) 0px 1px 0px,
-        inset rgba(0, 0, 0, 0.5) 0px 0px 5px,
-        inset rgba(255, 255, 255, 0.03) 0px 20px 0px,
-        inset rgba(0, 0, 0, 0.15) 0px -20px 20px,
-        inset rgba(255, 255, 255, 0.05) 0px 20px 20px;
-    -moz-box-shadow: rgba(255, 255, 255, 0.25) 0px 1px 0px,
-        inset rgba(255, 255, 255, 0) 0px 1px 0px,
-        inset rgba(0, 0, 0, 0.5) 0px 0px 5px,
-        inset rgba(255, 255, 255, 0.03) 0px 20px 0px,
-        inset rgba(0, 0, 0, 0.15) 0px -20px 20px,
-        inset rgba(255, 255, 255, 0.05) 0px 20px 20px;
-    -o-box-shadow: rgba(255, 255, 255, 0.25) 0px 1px 0px,
-        inset rgba(255, 255, 255, 0) 0px 1px 0px,
-        inset rgba(0, 0, 0, 0.5) 0px 0px 5px,
-        inset rgba(255, 255, 255, 0.03) 0px 20px 0px,
-        inset rgba(0, 0, 0, 0.15) 0px -20px 20px,
-        inset rgba(255, 255, 255, 0.05) 0px 20px 20px;
-    box-shadow: rgba(255, 255, 255, 0.25) 0px 1px 0px,
-        inset rgba(255, 255, 255, 0) 0px 1px 0px,
-        inset rgba(0, 0, 0, 0.5) 0px 0px 5px,
-        inset rgba(255, 255, 255, 0.03) 0px 20px 0px,
-        inset rgba(0, 0, 0, 0.15) 0px -20px 20px,
-        inset rgba(255, 255, 255, 0.05) 0px 20px 20px;
-}
-.shine {
-    display: block;
-    position: relative;
-    background: -moz-linear-gradient(
-        left,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 1) 50%,
-        rgba(255, 255, 255, 0) 100%
-    );
-    background: -webkit-gradient(
-        linear,
-        left top,
-        right top,
-        color-stop(0%, rgba(255, 255, 255, 0)),
-        color-stop(50%, rgba(255, 255, 255, 1)),
-        color-stop(100%, rgba(255, 255, 255, 0))
-    );
-    background: -webkit-linear-gradient(
-        left,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 1) 50%,
-        rgba(255, 255, 255, 0) 100%
-    );
-    background: -o-linear-gradient(
-        left,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 1) 50%,
-        rgba(255, 255, 255, 0) 100%
-    );
-    background: -ms-linear-gradient(
-        left,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 1) 50%,
-        rgba(255, 255, 255, 0) 100%
-    );
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#00ffffff',GradientType=1 );
-    background: linear-gradient(
-        left,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 1) 50%,
-        rgba(255, 255, 255, 0) 100%
-    );
-    padding: 0px 12px;
-    top: -12px;
-    left: -24px;
-    height: 1px;
-    -webkit-box-shadow: rgba(255, 255, 255, 0.2) 0px 1px 5px;
-    -khtml-box-shadow: rgba(255, 255, 255, 0.2) 0px 1px 5px;
-    -moz-box-shadow: rgba(255, 255, 255, 0.2) 0px 1px 5px;
-    -o-box-shadow: rgba(255, 255, 255, 0.2) 0px 1px 5px;
-    box-shadow: rgba(255, 255, 255, 0.2) 0px 1px 5px;
-    -webkit-transition: all 0.3s ease-in-out;
-    -khtml-transition: all 0.3s ease-in-out;
-    -moz-transition: all 0.3s ease-in-out;
-    -o-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;
-}
-.button:hover .shine {
-    left: 24px;
-}
-.button:active .shine {
-    opacity: 0;
-}
+    width: 100px;
+    height: 100px;
+    margin-top: -50px;
+    margin-left: -50px;
+    text-align: center;
+    font-size: 30px;
+    padding: 20px;
+    font-family: "Press Start 2P", cursive;
+    text-decoration: none;
+    color: white;
+    box-shadow: inset (-$shadow-width) (-$shadow-width) 0px 0px $shadow-color;
+    cursor: pointer;
 
-.button.gray {
-    background: rgb(18, 18, 18);
-}
-.button.blue {
-    background: #3a617e;
-}
-.button.green {
-    background: #5dfc0a;
-}
-.button.red {
-    background: #723131;
-}
-.button.purple {
-    background: #4b3f5e;
-}
-.button.orange {
-    background: #624529;
+    &:hover,
+    &:focus {
+        background: $sec-button-background;
+        box-shadow: inset (-$shadow-width * 1.5) (-$shadow-width * 1.5) 0px 0px
+            $shadow-color;
+    }
+
+    &:active {
+        box-shadow: inset $shadow-width $shadow-width 0px 0px $shadow-color;
+    }
+
+    &:before,
+    &:after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        box-sizing: content-box;
+    }
+
+    &:before {
+        top: -$outline-width;
+        left: 0;
+        border-top: $outline-width rgba(255, 255, 255, 0.252) solid;
+        border-bottom: $outline-width rgba(255, 255, 255, 0.252) solid;
+    }
+
+    &:after {
+        left: -$outline-width;
+        top: 0;
+        border-left: $outline-width rgba(255, 255, 255, 0.252) solid;
+        border-right: $outline-width rgba(255, 255, 255, 0.252) solid;
+    }
+
+    &--reset {
+        background: $reset-button-background;
+        box-shadow: inset (-$shadow-width) (-$shadow-width) 0px 0px
+            $reset-shadow-color;
+
+        &:hover,
+        &:focus {
+            background: $reset-sec-button-background;
+            box-shadow: inset (-$shadow-width * 1.5) (-$shadow-width * 1.5) 0px
+                0px $reset-shadow-color;
+        }
+
+        &:active {
+            box-shadow: inset $shadow-width $shadow-width 0px 0px
+                $reset-shadow-color;
+        }
+    }
+
+    &--proceed {
+        background: $alt-button-background;
+        box-shadow: inset (-$shadow-width) (-$shadow-width) 0px 0px
+            $alt-shadow-color;
+
+        &:hover,
+        &:focus {
+            background: $alt-sec-button-background;
+            box-shadow: inset (-$shadow-width * 1.5) (-$shadow-width * 1.5) 0px
+                0px $alt-shadow-color;
+        }
+
+        &:active {
+            box-shadow: inset $shadow-width $shadow-width 0px 0px
+                $alt-shadow-color;
+        }
+    }
 }

@@ -1,15 +1,21 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
+const alphabet = "abcdefghijklmnopqrstuvwxyz";
+const easy = "et";
+
 function MorseCodes() {
-    const [currentChallenge, setCurrentChallenge] = useState("ate".split(""));
+    const [currentChallenge, setCurrentChallenge] = useState(easy.split(""));
     const [currentLetter, setCurrentLetter] = useState(currentChallenge[0]);
     const [currentMorseCodeTyped, setCurrentMorseCodeTyped] = useState("");
     const [previousMorseCodeTyped, setPreviousMorseCodeTyped] = useState("");
     const [mouseDown, setMouseDown] = useState(false);
-    const [mouseDownTimeStamp, setMouseDownTimeStamp] = useState([]);
-    const [mouseUpTimeStamp, setMouseUpTimeStamp] = useState([]);
+    const [mouseDownTimeStamp, setMouseDownTimeStamp] = useState("");
+    const [mouseUpTimeStamp, setMouseUpTimeStamp] = useState("");
+    const [startTime, setStartTime] = useState("");
+    const [finishTime, setFinishTime] = useState("");
     const currentIndexOfChallengeLetter = currentChallenge.indexOf(currentLetter);
+    const challengeComplete = currentIndexOfChallengeLetter === -1;
 
     const compareMorseToCurrentLetter = () => {
         const currentLetterElement = document.getElementById(`challenge-letter-${currentIndexOfChallengeLetter}`);
@@ -28,9 +34,11 @@ function MorseCodes() {
         if (!currentMorseIsCorrect) {
             currentLetterElement.classList.remove('cursor');
             currentLetterElement.classList.add('shake');
+            setPreviousMorseCodeTyped(currentMorseCodeTyped);
             setCurrentMorseCodeTyped("");
 
             setTimeout(() => {
+                setPreviousMorseCodeTyped("");
                 currentLetterElement.classList.remove('shake');
                 currentLetterElement.classList.add('cursor');
             }, 200);
@@ -60,10 +68,19 @@ function MorseCodes() {
         }
     }
     
+    
+    const firstUpdate = useRef(true);
+    const timerStarted = useRef(false);
+
     const startTypingMorse = (e) => {
         if (!mouseDown) {
             setMouseDown(true);
             setMouseDownTimeStamp(e.timeStamp);
+        }
+
+        if (!timerStarted.current) {
+            setStartTime(e.timeStamp);
+            timerStarted.current = true;
         }
     }
 
@@ -73,9 +90,7 @@ function MorseCodes() {
             setMouseUpTimeStamp(e.timeStamp);
         }
     }
-
-    const firstUpdate = useRef(true);
-
+    
     useEffect(() => {
         if (!firstUpdate.current) {
             detectDotOrDash();
@@ -89,27 +104,30 @@ function MorseCodes() {
         }
     }, [currentMorseCodeTyped]);
 
+    useEffect(() => {
+        if (challengeComplete) {
+            setFinishTime(mouseUpTimeStamp);
+            console.log(mouseUpTimeStamp - startTime);
+        }
+    }, [currentIndexOfChallengeLetter]);
+
     return (
         <div className="container w-100 text-center" style={{ userSelect: "none" }}>
 
-            <h1 style={{ fontSize: "10em" }}>
+            <h1 style={{ fontSize: "5em" }}>
                 { currentChallenge.map((letter, i) => {
                     const currentLetter = (i === currentIndexOfChallengeLetter);
                     const futureLetters = (i > currentIndexOfChallengeLetter);
 
                     if (currentLetter) {
                         return (
-                            <>
-                                <span key={i} id={`challenge-letter-${i}`} className="cursor">{letter}</span>
-                            </>
+                            <span key={i} id={`challenge-letter-${i}`} className="cursor">{letter}</span>
                         )
                     }
 
                     if (futureLetters) {
                         return (
-                            <>
-                                <span key={i} id={`challenge-letter-${i}`} className="future-letter">{letter}</span>
-                            </>
+                            <span key={i} id={`challenge-letter-${i}`} className="future-letter">{letter}</span>
                         )
                     }
 
@@ -122,7 +140,7 @@ function MorseCodes() {
                 {currentMorseCodeTyped === '' ? previousMorseCodeTyped : currentMorseCodeTyped}
             </h1>
 
-            <div className="button grey" onMouseDown={startTypingMorse} onMouseUp={stopTypingMorse}></div>
+            <div className="eightbit-btn" onMouseDown={startTypingMorse} onMouseUp={stopTypingMorse}></div>
 
         </div>
     );
