@@ -1,10 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ReactDOM from 'react-dom';
+import MainMenu from './MainMenu';
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz";
 const easy = "et";
 
 function MorseCodes() {
+    const [challengeSelected, setChallengeSelected] = useState(false);
     const [currentChallenge, setCurrentChallenge] = useState(easy.split(""));
     const [currentLetter, setCurrentLetter] = useState(currentChallenge[0]);
     const [currentMorseCodeTyped, setCurrentMorseCodeTyped] = useState("");
@@ -54,8 +56,6 @@ function MorseCodes() {
             }, 200);
         }
     }
-
-    // Dots or Dashes
 
     const detectDotOrDash = () => {
         const timeStampDifference = mouseUpTimeStamp - mouseDownTimeStamp;
@@ -110,6 +110,10 @@ function MorseCodes() {
         }
     }, [currentIndexOfChallengeLetter]);
 
+    if (!challengeSelected) {
+        return <MainMenu />
+    }
+
     if (!challengeComplete) {
         return (
             <div className="container w-100 text-center" style={{ userSelect: "none" }}>
@@ -144,10 +148,6 @@ function MorseCodes() {
     
             </div>
         );
-    }
-
-    if (challengeComplete) {
-        return finishTime;
     }
 
 }
