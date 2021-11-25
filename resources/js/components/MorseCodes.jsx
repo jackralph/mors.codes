@@ -1,11 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import MainMenu from './MainMenu';
+import SubMenu from './SubMenu';
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz";
 const easy = "et";
 
 function MorseCodes() {
+    const [currentGameState, setCurrentGameState] = useState("main-menu");
+    const [currentDifficulty, setCurrentDifficulty] = useState("easy");
     const [challengeSelected, setChallengeSelected] = useState(false);
     const [currentChallenge, setCurrentChallenge] = useState(easy.split(""));
     const [currentLetter, setCurrentLetter] = useState(currentChallenge[0]);
@@ -110,11 +113,25 @@ function MorseCodes() {
         }
     }, [currentIndexOfChallengeLetter]);
 
-    if (!challengeSelected) {
-        return <MainMenu />
+    if (currentGameState === 'main-menu') {
+        return <MainMenu setCurrentGameState={setCurrentGameState}/>
     }
 
-    if (!challengeComplete) {
+    if (currentGameState === 'challenges') {
+        return <SubMenu setCurrentDifficulty={setCurrentDifficulty} setCurrentGameState={setCurrentGameState}/>
+    }
+
+    if (currentGameState === 'playground') {
+        return "playground";
+    }
+
+    if (currentGameState === 'records') {
+        return "records";
+    }
+
+    console.log(currentDifficulty);
+
+    if (currentGameState === 'game-ready') {
         return (
             <div className="container w-100 text-center" style={{ userSelect: "none" }}>
     

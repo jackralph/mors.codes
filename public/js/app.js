@@ -2138,7 +2138,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var MainMenu = function MainMenu() {
+var MainMenu = function MainMenu(_ref) {
+  var setCurrentGameState = _ref.setCurrentGameState;
+
+  var handleMenuSelection = function handleMenuSelection(_ref2) {
+    var menuItem = _ref2.target.dataset.menuItem;
+    setCurrentGameState(menuItem);
+  };
+
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
     className: "text-center list-group w-50 mx-auto mt-5",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("ul", {
@@ -2146,22 +2153,23 @@ var MainMenu = function MainMenu() {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h1", {
           className: "morse-code-main-menu-item",
-          children: "Lorem ipsum dolor sit amet."
+          "data-menu-item": "challenges",
+          onClick: handleMenuSelection,
+          children: "Challenges"
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h1", {
           className: "morse-code-main-menu-item",
-          children: "Lorem ipsum dolor sit amet."
+          "data-menu-item": "playground",
+          onClick: handleMenuSelection,
+          children: "Playground"
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h1", {
           className: "morse-code-main-menu-item",
-          children: "Lorem ipsum dolor sit amet."
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h1", {
-          className: "morse-code-main-menu-item",
-          children: "Lorem ipsum dolor sit amet."
+          "data-menu-item": "records",
+          onClick: handleMenuSelection,
+          children: "Records"
         })
       })]
     })
@@ -2186,7 +2194,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var _MainMenu__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MainMenu */ "./resources/js/components/MainMenu.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _SubMenu__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./SubMenu */ "./resources/js/components/SubMenu.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -2212,59 +2221,70 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var alphabet = "abcdefghijklmnopqrstuvwxyz";
 var easy = "et";
 
 function MorseCodes() {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("main-menu"),
       _useState2 = _slicedToArray(_useState, 2),
-      challengeSelected = _useState2[0],
-      setChallengeSelected = _useState2[1];
+      currentGameState = _useState2[0],
+      setCurrentGameState = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(easy.split("")),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("easy"),
       _useState4 = _slicedToArray(_useState3, 2),
-      currentChallenge = _useState4[0],
-      setCurrentChallenge = _useState4[1];
+      currentDifficulty = _useState4[0],
+      setCurrentDifficulty = _useState4[1];
 
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(currentChallenge[0]),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState6 = _slicedToArray(_useState5, 2),
-      currentLetter = _useState6[0],
-      setCurrentLetter = _useState6[1];
+      challengeSelected = _useState6[0],
+      setChallengeSelected = _useState6[1];
 
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(easy.split("")),
       _useState8 = _slicedToArray(_useState7, 2),
-      currentMorseCodeTyped = _useState8[0],
-      setCurrentMorseCodeTyped = _useState8[1];
+      currentChallenge = _useState8[0],
+      setCurrentChallenge = _useState8[1];
 
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(currentChallenge[0]),
       _useState10 = _slicedToArray(_useState9, 2),
-      previousMorseCodeTyped = _useState10[0],
-      setPreviousMorseCodeTyped = _useState10[1];
+      currentLetter = _useState10[0],
+      setCurrentLetter = _useState10[1];
 
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
       _useState12 = _slicedToArray(_useState11, 2),
-      mouseDown = _useState12[0],
-      setMouseDown = _useState12[1];
+      currentMorseCodeTyped = _useState12[0],
+      setCurrentMorseCodeTyped = _useState12[1];
 
   var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
       _useState14 = _slicedToArray(_useState13, 2),
-      mouseDownTimeStamp = _useState14[0],
-      setMouseDownTimeStamp = _useState14[1];
+      previousMorseCodeTyped = _useState14[0],
+      setPreviousMorseCodeTyped = _useState14[1];
 
-  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState16 = _slicedToArray(_useState15, 2),
-      mouseUpTimeStamp = _useState16[0],
-      setMouseUpTimeStamp = _useState16[1];
+      mouseDown = _useState16[0],
+      setMouseDown = _useState16[1];
 
   var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
       _useState18 = _slicedToArray(_useState17, 2),
-      startTime = _useState18[0],
-      setStartTime = _useState18[1];
+      mouseDownTimeStamp = _useState18[0],
+      setMouseDownTimeStamp = _useState18[1];
 
   var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
       _useState20 = _slicedToArray(_useState19, 2),
-      finishTime = _useState20[0],
-      setFinishTime = _useState20[1];
+      mouseUpTimeStamp = _useState20[0],
+      setMouseUpTimeStamp = _useState20[1];
+
+  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+      _useState22 = _slicedToArray(_useState21, 2),
+      startTime = _useState22[0],
+      setStartTime = _useState22[1];
+
+  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+      _useState24 = _slicedToArray(_useState23, 2),
+      finishTime = _useState24[0],
+      setFinishTime = _useState24[1];
 
   var currentIndexOfChallengeLetter = currentChallenge.indexOf(currentLetter);
   var challengeComplete = currentIndexOfChallengeLetter === -1;
@@ -2354,17 +2374,36 @@ function MorseCodes() {
     }
   }, [currentIndexOfChallengeLetter]);
 
-  if (!challengeSelected) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_MainMenu__WEBPACK_IMPORTED_MODULE_2__["default"], {});
+  if (currentGameState === 'main-menu') {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_MainMenu__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      setCurrentGameState: setCurrentGameState
+    });
   }
 
-  if (!challengeComplete) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+  if (currentGameState === 'challenges') {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_SubMenu__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      setCurrentDifficulty: setCurrentDifficulty,
+      setCurrentGameState: setCurrentGameState
+    });
+  }
+
+  if (currentGameState === 'playground') {
+    return "playground";
+  }
+
+  if (currentGameState === 'records') {
+    return "records";
+  }
+
+  console.log(currentDifficulty);
+
+  if (currentGameState === 'game-ready') {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
       className: "container w-100 text-center",
       style: {
         userSelect: "none"
       },
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h1", {
         style: {
           fontSize: "5em"
         },
@@ -2373,7 +2412,7 @@ function MorseCodes() {
           var futureLetters = i > currentIndexOfChallengeLetter;
 
           if (currentLetter) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
               id: "challenge-letter-".concat(i),
               className: "cursor",
               children: letter
@@ -2381,24 +2420,24 @@ function MorseCodes() {
           }
 
           if (futureLetters) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
               id: "challenge-letter-".concat(i),
               className: "future-letter",
               children: letter
             }, i);
           }
 
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
             id: "challenge-letter-".concat(i),
             children: letter
           }, i);
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h1", {
         style: {
           fontSize: "10em"
         },
         children: currentMorseCodeTyped === '' ? previousMorseCodeTyped : currentMorseCodeTyped
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
         className: "eightbit-btn",
         onMouseDown: startTypingMorse,
         onMouseUp: stopTypingMorse
@@ -2410,8 +2449,54 @@ function MorseCodes() {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MorseCodes);
 
 if (document.getElementById('content')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(MorseCodes, {}), document.getElementById('content'));
+  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(MorseCodes, {}), document.getElementById('content'));
 }
+
+/***/ }),
+
+/***/ "./resources/js/components/SubMenu.jsx":
+/*!*********************************************!*\
+  !*** ./resources/js/components/SubMenu.jsx ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+var SubMenu = function SubMenu(_ref) {
+  var setCurrentDifficulty = _ref.setCurrentDifficulty,
+      setCurrentGameState = _ref.setCurrentGameState;
+
+  var handleMenuSelection = function handleMenuSelection(_ref2) {
+    var menuItem = _ref2.target.dataset.menuItem;
+    setCurrentDifficulty(menuItem);
+    setCurrentGameState("game-ready");
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+    className: "text-center list-group w-50 mx-auto mt-5",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("ul", {
+      className: "morse-code-main-menu-list",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h1", {
+          className: "morse-code-main-menu-item",
+          "data-menu-item": "easy",
+          onClick: handleMenuSelection,
+          children: "Easy"
+        })
+      })
+    })
+  });
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SubMenu);
 
 /***/ }),
 
