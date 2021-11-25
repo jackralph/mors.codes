@@ -31286,55 +31286,61 @@ function MorseCodes() {
   }, [currentMorseCodeTyped]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (challengeComplete) {
-      setFinishTime(mouseUpTimeStamp);
-      console.log(mouseUpTimeStamp - startTime);
+      setFinishTime(mouseUpTimeStamp - startTime);
     }
   }, [currentIndexOfChallengeLetter]);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-    className: "container w-100 text-center",
-    style: {
-      userSelect: "none"
-    },
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h1", {
-      style: {
-        fontSize: "5em"
-      },
-      children: currentChallenge.map(function (letter, i) {
-        var currentLetter = i === currentIndexOfChallengeLetter;
-        var futureLetters = i > currentIndexOfChallengeLetter;
 
-        if (currentLetter) {
+  if (!challengeComplete) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+      className: "container w-100 text-center",
+      style: {
+        userSelect: "none"
+      },
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h1", {
+        style: {
+          fontSize: "5em"
+        },
+        children: currentChallenge.map(function (letter, i) {
+          var currentLetter = i === currentIndexOfChallengeLetter;
+          var futureLetters = i > currentIndexOfChallengeLetter;
+
+          if (currentLetter) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+              id: "challenge-letter-".concat(i),
+              className: "cursor",
+              children: letter
+            }, i);
+          }
+
+          if (futureLetters) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+              id: "challenge-letter-".concat(i),
+              className: "future-letter",
+              children: letter
+            }, i);
+          }
+
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
             id: "challenge-letter-".concat(i),
-            className: "cursor",
             children: letter
           }, i);
-        }
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h1", {
+        style: {
+          fontSize: "10em"
+        },
+        children: currentMorseCodeTyped === '' ? previousMorseCodeTyped : currentMorseCodeTyped
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+        className: "eightbit-btn",
+        onMouseDown: startTypingMorse,
+        onMouseUp: stopTypingMorse
+      })]
+    });
+  }
 
-        if (futureLetters) {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-            id: "challenge-letter-".concat(i),
-            className: "future-letter",
-            children: letter
-          }, i);
-        }
-
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-          id: "challenge-letter-".concat(i),
-          children: letter
-        }, i);
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h1", {
-      style: {
-        fontSize: "10em"
-      },
-      children: currentMorseCodeTyped === '' ? previousMorseCodeTyped : currentMorseCodeTyped
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-      className: "eightbit-btn",
-      onMouseDown: startTypingMorse,
-      onMouseUp: stopTypingMorse
-    })]
-  });
+  if (challengeComplete) {
+    return finishTime;
+  }
 }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MorseCodes);

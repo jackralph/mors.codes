@@ -106,44 +106,50 @@ function MorseCodes() {
 
     useEffect(() => {
         if (challengeComplete) {
-            setFinishTime(mouseUpTimeStamp);
-            console.log(mouseUpTimeStamp - startTime);
+            setFinishTime(mouseUpTimeStamp - startTime);
         }
     }, [currentIndexOfChallengeLetter]);
 
-    return (
-        <div className="container w-100 text-center" style={{ userSelect: "none" }}>
-
-            <h1 style={{ fontSize: "5em" }}>
-                { currentChallenge.map((letter, i) => {
-                    const currentLetter = (i === currentIndexOfChallengeLetter);
-                    const futureLetters = (i > currentIndexOfChallengeLetter);
-
-                    if (currentLetter) {
-                        return (
-                            <span key={i} id={`challenge-letter-${i}`} className="cursor">{letter}</span>
-                        )
+    if (!challengeComplete) {
+        return (
+            <div className="container w-100 text-center" style={{ userSelect: "none" }}>
+    
+                <h1 style={{ fontSize: "5em" }}>
+                    { currentChallenge.map((letter, i) => {
+                        const currentLetter = (i === currentIndexOfChallengeLetter);
+                        const futureLetters = (i > currentIndexOfChallengeLetter);
+    
+                        if (currentLetter) {
+                            return (
+                                <span key={i} id={`challenge-letter-${i}`} className="cursor">{letter}</span>
+                            )
+                        }
+    
+                        if (futureLetters) {
+                            return (
+                                <span key={i} id={`challenge-letter-${i}`} className="future-letter">{letter}</span>
+                            )
+                        }
+    
+                        return <span key={i} id={`challenge-letter-${i}`}>{letter}</span>
+                    })
                     }
+                </h1>
+    
+                <h1 style={{ fontSize: "10em" }}>
+                    {currentMorseCodeTyped === '' ? previousMorseCodeTyped : currentMorseCodeTyped}
+                </h1>
+    
+                <div className="eightbit-btn" onMouseDown={startTypingMorse} onMouseUp={stopTypingMorse}></div>
+    
+            </div>
+        );
+    }
 
-                    if (futureLetters) {
-                        return (
-                            <span key={i} id={`challenge-letter-${i}`} className="future-letter">{letter}</span>
-                        )
-                    }
+    if (challengeComplete) {
+        return finishTime;
+    }
 
-                    return <span key={i} id={`challenge-letter-${i}`}>{letter}</span>
-                })
-                }
-            </h1>
-
-            <h1 style={{ fontSize: "10em" }}>
-                {currentMorseCodeTyped === '' ? previousMorseCodeTyped : currentMorseCodeTyped}
-            </h1>
-
-            <div className="eightbit-btn" onMouseDown={startTypingMorse} onMouseUp={stopTypingMorse}></div>
-
-        </div>
-    );
 }
 
 export default MorseCodes;
