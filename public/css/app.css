@@ -10019,6 +10019,29 @@ h3 {
     border-color: #dee2e6;
   }
 }
+.morse-code-main-menu-list {
+  list-style-type: none;
+}
+
+@-webkit-keyframes demo {
+  0% {
+    background-color: black;
+  }
+  75% {
+    background-color: rgba(0, 255, 26, 0.485);
+  }
+  100% {
+    background-color: black;
+  }
+}
+.morse-code-main-menu-item:hover {
+  cursor: pointer;
+  -webkit-animation-name: demo;
+  -webkit-animation-duration: 900ms;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: ease-in-out;
+}
+
 .eightbit-btn {
   background: #92cd41;
   display: inline-block;
