@@ -18,7 +18,7 @@ class MorseCodeController extends Controller
         }
 
         return view('welcome', [
-            'morse_codes' => $morse_codes_array
+            'morse_codes' => $morse_codes_array,
         ]);
     }
 }

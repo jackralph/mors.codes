@@ -10,7 +10,7 @@ const MainMenu = ({ setCurrentGameState }) => {
         <div className="text-center list-group w-50 mx-auto mt-5">
             <ul className="morse-code-main-menu-list">
                 <li>
-                    <h1 className="morse-code-main-menu-item" data-menu-item="challenges" onClick={handleMenuSelection}>Challenges</h1>
+                    <h1 className="morse-code-main-menu-item" data-menu-item="game-ready" onClick={handleMenuSelection}>Play</h1>
                 </li>
                 <li>
                     <h1 className="morse-code-main-menu-item" data-menu-item="playground" onClick={handleMenuSelection}>Playground</h1>
