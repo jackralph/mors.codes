@@ -2158,7 +2158,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var GameState = function GameState() {
+var GameState = function GameState(_ref) {
+  var setCurrentGameState = _ref.setCurrentGameState;
+
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState2 = _slicedToArray(_useState, 2),
       challengeSelected = _useState2[0],
@@ -2453,6 +2455,12 @@ function MorseCodes() {
     });
   }
 
+  if (currentGameState === 'game-ready') {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_GameState__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      setCurrentGameState: setCurrentGameState
+    });
+  }
+
   if (currentGameState === 'playground') {
     return "playground";
   }
@@ -2461,12 +2469,8 @@ function MorseCodes() {
     return "records";
   }
 
-  if (currentGameState === 'result') {
-    return "result";
-  }
-
-  if (currentGameState === 'game-ready') {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_GameState__WEBPACK_IMPORTED_MODULE_2__["default"], {});
+  if (currentGameState === 'results') {
+    return "results";
   }
 }
 

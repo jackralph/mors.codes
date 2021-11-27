@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-const GameState = () => {
+const GameState = ({setCurrentGameState}) => {
     const [challengeSelected, setChallengeSelected] = useState(false);
     const [currentChallenge, setCurrentChallenge] = useState("et".split(""));
     const [currentLetter, setCurrentLetter] = useState(currentChallenge[0]);

@@ -10,6 +10,10 @@ function MorseCodes() {
         return <MainMenu setCurrentGameState={setCurrentGameState} />
     }
 
+    if (currentGameState === 'game-ready') {
+        return <GameState setCurrentGameState={setCurrentGameState}/>
+    }
+
     if (currentGameState === 'playground') {
         return "playground";
     }
@@ -18,13 +22,10 @@ function MorseCodes() {
         return "records";
     }
 
-    if (currentGameState === 'result') {
-        return "result";
+    if (currentGameState === 'results') {
+        return "results";
     }
 
-    if (currentGameState === 'game-ready') {
-        return <GameState />
-    }
 }
 
 export default MorseCodes;
