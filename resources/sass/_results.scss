@@ -1,0 +1,23 @@
+.results-list {
+    list-style-type: none;
+}
+
+@-webkit-keyframes demo {
+    0% {
+        background-color: rgb(0, 0, 0);
+    }
+    75% {
+        background-color: rgba(0, 255, 26, 0.485);
+    }
+    100% {
+        background-color: rgba(0, 0, 0);
+    }
+}
+
+.results-back-to-main-menu:hover {
+    cursor: pointer;
+    -webkit-animation-name: demo;
+    -webkit-animation-duration: 900ms;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: ease-in-out;
+}

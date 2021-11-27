@@ -15,3 +15,5 @@ use App\Http\Controllers\MorseCodeController;
 */
 
 Route::get('/', [MorseCodeController::class, 'index']);
+
+Route::get('/challenge', [MorseCodeController::class, 'getChallenge']);

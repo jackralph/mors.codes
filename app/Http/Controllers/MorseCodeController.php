@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\MorseCode;
+use App\Models\Challenge;
 
 class MorseCodeController extends Controller
 {
@@ -20,5 +21,12 @@ class MorseCodeController extends Controller
         return view('welcome', [
             'morse_codes' => $morse_codes_array,
         ]);
+    }
+
+    public function getChallenge()
+    {
+        $challenge = Challenge::first();
+
+        return $challenge;
     }
 }

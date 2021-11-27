@@ -10182,3 +10182,26 @@ body {
 .future-letter {
   opacity: 0.2;
 }
+
+.results-list {
+  list-style-type: none;
+}
+
+@-webkit-keyframes demo {
+  0% {
+    background-color: black;
+  }
+  75% {
+    background-color: rgba(0, 255, 26, 0.485);
+  }
+  100% {
+    background-color: black;
+  }
+}
+.results-back-to-main-menu:hover {
+  cursor: pointer;
+  -webkit-animation-name: demo;
+  -webkit-animation-duration: 900ms;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: ease-in-out;
+}

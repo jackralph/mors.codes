@@ -1,18 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-const GameState = ({setCurrentGameState}) => {
-    const [challengeSelected, setChallengeSelected] = useState(false);
+const GameState = ({setCurrentGameState, challenge, setFinishTime}) => {
     const [currentChallenge, setCurrentChallenge] = useState("et".split(""));
     const [currentLetter, setCurrentLetter] = useState(currentChallenge[0]);
+    const [currentIndexOfChallengeLetter, setCurrentIndexOfChallengeLetter] = useState(currentChallenge.indexOf(currentLetter));
+
     const [currentMorseCodeTyped, setCurrentMorseCodeTyped] = useState("");
     const [previousMorseCodeTyped, setPreviousMorseCodeTyped] = useState("");
     const [mouseDown, setMouseDown] = useState(false);
     const [mouseDownTimeStamp, setMouseDownTimeStamp] = useState("");
     const [mouseUpTimeStamp, setMouseUpTimeStamp] = useState("");
     const [startTime, setStartTime] = useState("");
-    const [finishTime, setFinishTime] = useState("");
-    const currentIndexOfChallengeLetter = currentChallenge.indexOf(currentLetter);
-    const challengeComplete = currentIndexOfChallengeLetter === -1;
+    const [challengeComplete, setChallengeComplete] = useState(false);
+    const [inputDisabled, setInputDisabled] = useState(false);
 
     const compareMorseToCurrentLetter = () => {
         const currentLetterElement = document.getElementById(`challenge-letter-${currentIndexOfChallengeLetter}`);
@@ -29,6 +29,7 @@ const GameState = ({setCurrentGameState}) => {
         const currentMorseIsCorrect = correctMorseCount === currentMorseCodeTyped.length;
 
         if (!currentMorseIsCorrect) {
+            setInputDisabled(true);
             currentLetterElement.classList.remove('cursor');
             currentLetterElement.classList.add('shake');
             setPreviousMorseCodeTyped(currentMorseCodeTyped);
@@ -38,20 +39,32 @@ const GameState = ({setCurrentGameState}) => {
                 currentLetterElement.classList.add('cursor');
                 currentLetterElement.classList.remove('shake');
                 setPreviousMorseCodeTyped("");
+                setInputDisabled(false);
             }, 200);
         }
 
         if (currentMorseIsCorrect && morseMatchesTargetLetterLength) {
-            setCurrentLetter(currentChallenge[currentIndexOfChallengeLetter + 1]);
+            if (currentChallenge[currentIndexOfChallengeLetter + 1] === ' ') {
+                setTimeout(() => {
+                    setCurrentIndexOfChallengeLetter(currentIndexOfChallengeLetter + 2);
+                    setCurrentLetter(currentChallenge[currentIndexOfChallengeLetter + 2]);
+                }, 200);
+            } else if (currentChallenge.length === currentIndexOfChallengeLetter + 1) {
+                setChallengeComplete(true);
+            } else {
+                setCurrentIndexOfChallengeLetter(currentIndexOfChallengeLetter + 1);
+                setCurrentLetter(currentChallenge[currentIndexOfChallengeLetter + 1]);
+            }
             setPreviousMorseCodeTyped(currentMorseCodeTyped);
             setCurrentMorseCodeTyped("");
+
             
             setTimeout(() => {
                 setPreviousMorseCodeTyped("");
             }, 200);
         }
     }
-
+    
     const detectDotOrDash = () => {
         const timeStampDifference = mouseUpTimeStamp - mouseDownTimeStamp;
         const previousMorseCodeTyped = currentMorseCodeTyped;
@@ -63,26 +76,29 @@ const GameState = ({setCurrentGameState}) => {
         }
     }
     
-    
     const firstUpdate = useRef(true);
     const timerStarted = useRef(false);
-
+    
     const startTypingMorse = (e) => {
-        if (!mouseDown) {
-            setMouseDown(true);
-            setMouseDownTimeStamp(e.timeStamp);
-        }
-
-        if (!timerStarted.current) {
-            setStartTime(e.timeStamp);
-            timerStarted.current = true;
+        if (!inputDisabled) {
+            if (!mouseDown) {
+                setMouseDown(true);
+                setMouseDownTimeStamp(e.timeStamp);
+            }
+    
+            if (!timerStarted.current) {
+                setStartTime(e.timeStamp);
+                timerStarted.current = true;
+            }
         }
     }
 
     const stopTypingMorse = (e) => {
-        if (mouseDown) {
-            setMouseDown(false);
-            setMouseUpTimeStamp(e.timeStamp);
+        if (!inputDisabled) {
+            if (mouseDown) {
+                setMouseDown(false);
+                setMouseUpTimeStamp(e.timeStamp);
+            }
         }
     }
     
@@ -104,7 +120,7 @@ const GameState = ({setCurrentGameState}) => {
             setFinishTime(mouseUpTimeStamp - startTime);
             setCurrentGameState('results');
         }
-    }, [currentIndexOfChallengeLetter]);
+    }, [challengeComplete]);
 
     return (
         <div className="container w-100 text-center" style={{ userSelect: "none" }}>
