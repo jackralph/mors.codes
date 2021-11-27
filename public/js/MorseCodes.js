@@ -40,15 +40,14 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var GameState = function GameState(_ref) {
   var setCurrentGameState = _ref.setCurrentGameState,
-      challenge = _ref.challenge,
       setFinishTime = _ref.setFinishTime;
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("et".split("")),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
       _useState2 = _slicedToArray(_useState, 2),
       currentChallenge = _useState2[0],
       setCurrentChallenge = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(currentChallenge[0]),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
       _useState4 = _slicedToArray(_useState3, 2),
       currentLetter = _useState4[0],
       setCurrentLetter = _useState4[1];
@@ -129,19 +128,22 @@ var GameState = function GameState(_ref) {
         setTimeout(function () {
           setCurrentIndexOfChallengeLetter(currentIndexOfChallengeLetter + 2);
           setCurrentLetter(currentChallenge[currentIndexOfChallengeLetter + 2]);
+          setTimeout(function () {
+            setPreviousMorseCodeTyped("");
+          }, 200);
         }, 200);
       } else if (currentChallenge.length === currentIndexOfChallengeLetter + 1) {
         setChallengeComplete(true);
       } else {
         setCurrentIndexOfChallengeLetter(currentIndexOfChallengeLetter + 1);
         setCurrentLetter(currentChallenge[currentIndexOfChallengeLetter + 1]);
+        setTimeout(function () {
+          setPreviousMorseCodeTyped("");
+        }, 200);
       }
 
       setPreviousMorseCodeTyped(currentMorseCodeTyped);
       setCurrentMorseCodeTyped("");
-      setTimeout(function () {
-        setPreviousMorseCodeTyped("");
-      }, 200);
     }
   };
 
@@ -156,7 +158,6 @@ var GameState = function GameState(_ref) {
     }
   };
 
-  var firstUpdate = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(true);
   var timerStarted = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(false);
 
   var startTypingMorse = function startTypingMorse(e) {
@@ -182,6 +183,24 @@ var GameState = function GameState(_ref) {
     }
   };
 
+  var firstUpdate = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(true);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var getChallenge = function getChallenge() {
+      var challenge = axios.get('/challenge').then(function (response) {
+        return response.data.challenge;
+      });
+      return challenge;
+    };
+
+    if (firstUpdate.current) {
+      var challengePromise = getChallenge();
+      Promise.resolve(challengePromise).then(function (value) {
+        var splitChallenge = value.split("");
+        setCurrentChallenge(splitChallenge);
+        setCurrentLetter(splitChallenge[0]);
+      });
+    }
+  }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (!firstUpdate.current) {
       detectDotOrDash();
@@ -200,51 +219,56 @@ var GameState = function GameState(_ref) {
       setCurrentGameState('results');
     }
   }, [challengeComplete]);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-    className: "container w-100 text-center",
-    style: {
-      userSelect: "none"
-    },
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h1", {
-      style: {
-        fontSize: "5em"
-      },
-      children: currentChallenge.map(function (letter, i) {
-        var currentLetter = i === currentIndexOfChallengeLetter;
-        var futureLetters = i > currentIndexOfChallengeLetter;
 
-        if (currentLetter) {
+  if (currentChallenge !== '') {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "container w-100 text-center",
+      style: {
+        userSelect: "none"
+      },
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h1", {
+        style: {
+          fontSize: "5em"
+        },
+        children: currentChallenge.map(function (letter, i) {
+          var currentLetter = i === currentIndexOfChallengeLetter;
+          var futureLetters = i > currentIndexOfChallengeLetter;
+
+          if (currentLetter) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+              id: "challenge-letter-".concat(i),
+              className: "cursor",
+              children: letter
+            }, i);
+          }
+
+          if (futureLetters) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+              id: "challenge-letter-".concat(i),
+              className: "future-letter",
+              children: letter
+            }, i);
+          }
+
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
             id: "challenge-letter-".concat(i),
-            className: "cursor",
             children: letter
           }, i);
-        }
-
-        if (futureLetters) {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-            id: "challenge-letter-".concat(i),
-            className: "future-letter",
-            children: letter
-          }, i);
-        }
-
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-          id: "challenge-letter-".concat(i),
-          children: letter
-        }, i);
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h1", {
-      style: {
-        fontSize: "10em"
-      },
-      children: currentMorseCodeTyped === '' ? previousMorseCodeTyped : currentMorseCodeTyped
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      className: "eightbit-btn",
-      onMouseDown: startTypingMorse,
-      onMouseUp: stopTypingMorse
-    })]
-  });
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h1", {
+        style: {
+          fontSize: "10em"
+        },
+        children: currentMorseCodeTyped === '' ? previousMorseCodeTyped : currentMorseCodeTyped
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "eightbit-btn",
+        onMouseDown: startTypingMorse,
+        onMouseUp: stopTypingMorse
+      })]
+    });
+  } else {
+    return null;
+  }
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (GameState);
@@ -31495,20 +31519,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var getChallenge = function getChallenge() {
-  var challenge = axios.get('/challenge').then(function (response) {
-    return response.data.challenge;
-  });
-  return challenge;
-};
-
-var challengePromise = getChallenge();
-var challenge;
-Promise.resolve(challengePromise).then(function (value) {
-  var splitChallenge = value.split("");
-  challenge = splitChallenge;
-});
-
 function MorseCodes() {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("main-menu"),
       _useState2 = _slicedToArray(_useState, 2),
@@ -31529,7 +31539,6 @@ function MorseCodes() {
   if (currentGameState === 'game-ready') {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_GameState__WEBPACK_IMPORTED_MODULE_2__["default"], {
       setCurrentGameState: setCurrentGameState,
-      challenge: challenge,
       setFinishTime: setFinishTime
     });
   }

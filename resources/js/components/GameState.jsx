@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-const GameState = ({setCurrentGameState, challenge, setFinishTime}) => {
-    const [currentChallenge, setCurrentChallenge] = useState("et".split(""));
-    const [currentLetter, setCurrentLetter] = useState(currentChallenge[0]);
+const GameState = ({setCurrentGameState, setFinishTime}) => {
+    const [currentChallenge, setCurrentChallenge] = useState("");
+    const [currentLetter, setCurrentLetter] = useState("");
     const [currentIndexOfChallengeLetter, setCurrentIndexOfChallengeLetter] = useState(currentChallenge.indexOf(currentLetter));
 
     const [currentMorseCodeTyped, setCurrentMorseCodeTyped] = useState("");
@@ -48,20 +48,28 @@ const GameState = ({setCurrentGameState, challenge, setFinishTime}) => {
                 setTimeout(() => {
                     setCurrentIndexOfChallengeLetter(currentIndexOfChallengeLetter + 2);
                     setCurrentLetter(currentChallenge[currentIndexOfChallengeLetter + 2]);
+
+                    setTimeout(() => {
+                        setPreviousMorseCodeTyped("");
+                    }, 200);
+
                 }, 200);
             } else if (currentChallenge.length === currentIndexOfChallengeLetter + 1) {
                 setChallengeComplete(true);
             } else {
                 setCurrentIndexOfChallengeLetter(currentIndexOfChallengeLetter + 1);
                 setCurrentLetter(currentChallenge[currentIndexOfChallengeLetter + 1]);
+
+                setTimeout(() => {
+                    setPreviousMorseCodeTyped("");
+                }, 200);
+
             }
             setPreviousMorseCodeTyped(currentMorseCodeTyped);
             setCurrentMorseCodeTyped("");
 
             
-            setTimeout(() => {
-                setPreviousMorseCodeTyped("");
-            }, 200);
+            
         }
     }
     
@@ -76,7 +84,6 @@ const GameState = ({setCurrentGameState, challenge, setFinishTime}) => {
         }
     }
     
-    const firstUpdate = useRef(true);
     const timerStarted = useRef(false);
     
     const startTypingMorse = (e) => {
@@ -101,7 +108,29 @@ const GameState = ({setCurrentGameState, challenge, setFinishTime}) => {
             }
         }
     }
+
+    const firstUpdate = useRef(true);
     
+    useEffect(() => {
+        const getChallenge = () => {
+            const challenge = axios.get('/challenge').then((response) => {
+                return response.data.challenge;
+            });
+        
+            return challenge;
+        }
+
+        if (firstUpdate.current) {
+            const challengePromise = getChallenge();
+            
+            Promise.resolve(challengePromise).then((value) => {
+                const splitChallenge = value.split("");
+                setCurrentChallenge(splitChallenge);
+                setCurrentLetter(splitChallenge[0]);
+            });
+        }
+    }, []);
+
     useEffect(() => {
         if (!firstUpdate.current) {
             detectDotOrDash();
@@ -122,39 +151,44 @@ const GameState = ({setCurrentGameState, challenge, setFinishTime}) => {
         }
     }, [challengeComplete]);
 
-    return (
-        <div className="container w-100 text-center" style={{ userSelect: "none" }}>
-
-            <h1 style={{ fontSize: "5em" }}>
-                { currentChallenge.map((letter, i) => {
-                    const currentLetter = (i === currentIndexOfChallengeLetter);
-                    const futureLetters = (i > currentIndexOfChallengeLetter);
-
-                    if (currentLetter) {
-                        return (
-                            <span key={i} id={`challenge-letter-${i}`} className="cursor">{letter}</span>
-                        )
+    if (currentChallenge !== '') {
+        return (
+            <div className="container w-100 text-center" style={{ userSelect: "none" }}>
+    
+                <h1 style={{ fontSize: "5em" }}>
+                    { currentChallenge.map((letter, i) => {
+                        const currentLetter = (i === currentIndexOfChallengeLetter);
+                        const futureLetters = (i > currentIndexOfChallengeLetter);
+    
+                        if (currentLetter) {
+                            return (
+                                <span key={i} id={`challenge-letter-${i}`} className="cursor">{letter}</span>
+                            )
+                        }
+    
+                        if (futureLetters) {
+                            return (
+                                <span key={i} id={`challenge-letter-${i}`} className="future-letter">{letter}</span>
+                            )
+                        }
+    
+                        return <span key={i} id={`challenge-letter-${i}`}>{letter}</span>
+                    })
                     }
+                </h1>
+    
+                <h1 style={{ fontSize: "10em" }}>
+                    {currentMorseCodeTyped === '' ? previousMorseCodeTyped : currentMorseCodeTyped}
+                </h1>
+    
+                <div className="eightbit-btn" onMouseDown={startTypingMorse} onMouseUp={stopTypingMorse}></div>
+    
+            </div>
+        );
 
-                    if (futureLetters) {
-                        return (
-                            <span key={i} id={`challenge-letter-${i}`} className="future-letter">{letter}</span>
-                        )
-                    }
-
-                    return <span key={i} id={`challenge-letter-${i}`}>{letter}</span>
-                })
-                }
-            </h1>
-
-            <h1 style={{ fontSize: "10em" }}>
-                {currentMorseCodeTyped === '' ? previousMorseCodeTyped : currentMorseCodeTyped}
-            </h1>
-
-            <div className="eightbit-btn" onMouseDown={startTypingMorse} onMouseUp={stopTypingMorse}></div>
-
-        </div>
-    );
+    } else {
+        return null;
+    }
 };
 
 export default GameState;

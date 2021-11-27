@@ -4,23 +4,6 @@ import GameState from './GameState';
 import MainMenu from './MainMenu';
 import Results from './Results';
 
-const getChallenge = () => {
-    const challenge = axios.get('/challenge').then((response) => {
-        return response.data.challenge;
-    });
-
-    return challenge;
-}
-
-const challengePromise = getChallenge();
-
-let challenge;
-
-Promise.resolve(challengePromise).then((value) => {
-    const splitChallenge = value.split("");
-    challenge = splitChallenge;
-});
-
 function MorseCodes() {
     const [currentGameState, setCurrentGameState] = useState("main-menu");
     const [finishTime, setFinishTime] = useState("");
@@ -32,7 +15,6 @@ function MorseCodes() {
     if (currentGameState === 'game-ready') {
         return <GameState 
             setCurrentGameState={setCurrentGameState} 
-            challenge={challenge} 
             setFinishTime={setFinishTime}
         />
     }
